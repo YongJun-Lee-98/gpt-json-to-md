@@ -38,26 +38,29 @@ def save_markdown_files(markdown_files, directory):
         with open(file_path, 'w', encoding='utf-8') as file:
             file.write(markdown_content)
 
+def main():
+    # 저장할 디렉토리 경로 선택
+    save_directory = filedialog.askdirectory(title="저장할 위치를 설정해주세요")  # 디렉토리 선택 대화상자
 
-# 저장할 디렉토리 경로 선택
-save_directory = filedialog.askdirectory(title="저장할 위치를 설정해주세요")  # 디렉토리 선택 대화상자
+    # 선택한 디렉토리 경로 출력
+    print('Selected directory:', save_directory)
 
-# 선택한 디렉토리 경로 출력
-print('Selected directory:', save_directory)
+    # JSON 파일 선택
+    json_file_path = filedialog.askopenfilename(
+        title = "JSON 파일을 선택해주세요",
+        filetypes=[('JSON Files', '*.json')])
 
-# JSON 파일 선택
-json_file_path = filedialog.askopenfilename(
-    title = "JSON 파일을 선택해주세요",
-    filetypes=[('JSON Files', '*.json')])
+    # 선택한 파일 경로 출력
+    print('Selected JSON file:', json_file_path)
 
-# 선택한 파일 경로 출력
-print('Selected JSON file:', json_file_path)
+    # JSON 데이터 읽기
+    json_content = read_json_file(json_file_path)
 
-# JSON 데이터 읽기
-json_content = read_json_file(json_file_path)
+    # JSON 데이터의 각 대화를 마크다운으로 변환하고, 제목도 함께 저장
+    markdown_files = [(conv['title'], convert_conversation_to_markdown(conv)) for conv in json_content]
 
-# JSON 데이터의 각 대화를 마크다운으로 변환하고, 제목도 함께 저장
-markdown_files = [(conv['title'], convert_conversation_to_markdown(conv)) for conv in json_content]
-
-# 변환된 마크다운 파일들을 저장
-save_markdown_files(markdown_files, save_directory)
+    # 변환된 마크다운 파일들을 저장
+    save_markdown_files(markdown_files, save_directory)
+    
+if __name__ == "__main__":
+    main()
