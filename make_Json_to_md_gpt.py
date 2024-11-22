@@ -17,9 +17,15 @@ def convert_conversation_to_markdown(conversation):
             author = "ChatGPT" if author_role == 'assistant' else "User"
             # 메시지 내용
             content = message_info['message']['content'].get('parts', [''])[0]
-            # 마크다운에 메시지 추가
-            markdown_content += f"**{author}**:\n```\n{content}\n```\n\n"
+
+            # content가 문자열인 경우 공백 또는 엔터만 포함하는지 확인
+            if isinstance(content, str) and content.strip():  # strip()은 공백 및 엔터를 제거하여 비어있는지 확인
+                # 마크다운에 메시지 추가
+                markdown_content += f"**{author}**:\n```\n{content}\n```\n\n"
+    
     return markdown_content
+
+
 
 def read_json_file(file_path):
     """

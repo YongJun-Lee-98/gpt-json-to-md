@@ -3,6 +3,9 @@
 ## 2. GPT의 파일로 다운로드를 클릭 후 Json파일을 클릭
 ## 3. 1번에서 선택한 위치에 md(마크다운 파일)이 생성된 것을 확인
 
+### 추천되는 python 버전
+python 3.11  
+
 chat-gpt에서 받은 json 파일을 마크다운 파일로 변경하는 코드입니다.
 ```mermaid
 sequenceDiagram
