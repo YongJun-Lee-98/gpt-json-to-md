@@ -1,7 +1,6 @@
 import json
 import os
-import tkinter as Tk
-from tkinter import filedialog
+from tkinter import filedialog, Tk
 
 def convert_conversation_to_markdown(conversation):
     """
@@ -17,15 +16,9 @@ def convert_conversation_to_markdown(conversation):
             author = "ChatGPT" if author_role == 'assistant' else "User"
             # 메시지 내용
             content = message_info['message']['content'].get('parts', [''])[0]
-
-            # content가 문자열인 경우 공백 또는 엔터만 포함하는지 확인
-            if isinstance(content, str) and content.strip():  # strip()은 공백 및 엔터를 제거하여 비어있는지 확인
-                # 마크다운에 메시지 추가
-                markdown_content += f"**{author}**:\n```\n{content}\n```\n\n"
-    
+            # 마크다운에 메시지 추가
+            markdown_content += f"**{author}**:\n```\n{content}\n```\n\n"
     return markdown_content
-
-
 
 def read_json_file(file_path):
     """
@@ -44,12 +37,13 @@ def save_markdown_files(markdown_files, directory):
         with open(file_path, 'w', encoding='utf-8') as file:
             file.write(markdown_content)
 
+
 def main():
     # 저장할 디렉토리 경로 선택
     save_directory = filedialog.askdirectory(title="저장할 위치를 설정해주세요")  # 디렉토리 선택 대화상자
-
+    
     # 선택한 디렉토리 경로 출력
-    print('Selected directory:', save_directory)
+    print('Selected directory:',save_directory,"1")
 
     # JSON 파일 선택
     json_file_path = filedialog.askopenfilename(
